@@ -22,48 +22,20 @@ void solve()
 
     long long score=0;
 
-    for(int i=0;i<n; i+=2)
+    if(cards[0]>=0 ||(cards[0]<=0 && cards[1]<=0))
     {
-        // cout<<i<<endl;
-        int odd= i;
-        int even= i+1;
+        for(int i=0;i<n;i++)
+        score+= max(0LL, cards[i]);
 
-        if(even==n)
-        {
-            if(cards[odd]>0)
-                score+= cards[odd];
-            break;
-        }
-
-        if(cards[odd]<=0 && cards[even] <=0)
-        {
-            continue;
-        }
-        else if(cards[odd]<=0 && cards[even]>=0)
-        {
-            if((cards[even]+ cards[odd]) > 0)
-                score+= cards[odd]+ cards[even];
-            else
-            {
-                cards[even]=0;
-                i--;
-            }
-            continue;
-        }
-        else if(cards[odd]>=0 && cards[even]<=0)
-        {
-            score+= cards[odd];
-            continue;
-        }
-        else if(cards[odd]>=0 && cards[even]>=0)
-        {
-            score+= cards[odd]+ cards[even];
-            continue;
-        }
+        cout<<score<<endl;
+        return;
     }
 
-    cout<<score<<endl;
+    for(int i=2;i<n;i++)
+    score+= max(0LL, cards[i]);
 
+    score+= max(0LL, cards[0]+ cards[1]);
+    cout<<score<<endl;
 }
 
 int main()
