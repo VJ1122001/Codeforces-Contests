@@ -20,7 +20,7 @@ void solve()
     for(int i=0; i<n; i++)
     cin>> C[i];
 
-    int ans=0;
+    long long ans=0;
     
     for(int i=1; i<n; i++)
     {
