@@ -1,5 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+template<class T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 void solve()
 {
@@ -16,48 +20,13 @@ void solve()
     sort(v.begin(), v.end());
 
     long long ans=0;
-    multiset<pair<long long,long long>, greater<pair<long long,long long>>> m;
+    ordered_set<long long> s;
     for(int i=n-1; i>=0; i--)
     {
-        vector<pair<long long,long long>> erased;
-
-        while(!m.empty() && m.begin()->first > v[i].second)
-        {
-            erased.push_back(*m.begin());
-            m.erase(m.begin());
-        }
-
-        ans+= m.size();
-
-        for(int j=0; j<erased.size(); j++)
-        m.insert(erased[j]);
-
-        m.insert({v[i].second, v[i].first});
+        ans+= s.order_of_key(v[i].second);
+        s.insert(v[i].second);
     }
-
-
-
-    // long long pairs=0;
-    // for(int i=0; i<n-1; i++)
-    // {
-    //     if(v[i+1].second < v[i].second && v[i].second > v[i+1].first)
-    //     {
-    //         v[i+1].first= min(v[i+1].first, v[i].first);
-    //         v[i+1].second= max(v[i].second, v[i+1].second);
-    //         pairs++;                                             
-
-    //     }
-    //     else
-    //     {
-    //         ans+= pairs* (pairs+1)/2;
-    //         pairs=0;
-    //     }
-        
-    // }
-
-    // ans+= pairs* (pairs+1)/2;
-
-    
+  
     cout<<ans<<endl;
 }
 
